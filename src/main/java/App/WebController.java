@@ -7,20 +7,37 @@ import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController
 public class WebController {
 
     @GetMapping("/rmfmaxx")
-    public ArrayList<String> rmfmaxxHitList(){
-        ArrayList<String> hitList = new ArrayList<>();
+    public ArrayList<Song> rmfmaxxHitList(){
+        ArrayList<Song> hitList = new ArrayList<>();
         try {
             String address = "https://www.rmfmaxxx.pl/top40";
             Document doc = Jsoup.connect(address).get();
             Elements hits = doc.select("div.list-songs a.is-title");
-            hits.forEach(element -> hitList.add(element.attr("title")));
+            int counter = 0;
+            String[] artistsAndSong = new String[40];
+            for(Element element : hits){
+                artistsAndSong[counter] = element.attr("title");
+                if(counter == 39){
+                    break;
+                }
+                counter++;
+            }
+            counter = 0;
+            for (String s : artistsAndSong) {
+                String[] splitArtistsAndName = s.split(" - ");
+                hitList.add(new Song(splitArtistsAndName[1]));
+                String[] splitArtistsUsingSlash = splitArtistsAndName[0].split(" / ");
+                for (String string : splitArtistsUsingSlash) {
+                    hitList.get(counter).addArtist(new Artist(string));
+                }
+                counter++;
+            }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -28,13 +45,46 @@ public class WebController {
     }
 
     @GetMapping("/radiozet")
-    public ArrayList<String> radiozetHitList(){
-        ArrayList<String> hitList = new ArrayList<>();
+    public ArrayList<Song> radiozetHitList(){
+        ArrayList<Song> hitList = new ArrayList<>();
         try {
             String address = "https://www.radiozet.pl/Radio/Lista-przebojow";
             Document doc = Jsoup.connect(address).get();
-            Elements hits = doc.select("div.chart__full__list__track-list div.track div.track");
-            hits.forEach(element -> hitList.add(element.text()));
+            Elements hitArtist = doc.select("div.chart__full__list__track-list div.track div.track div.artist-track");
+            int counter = 0;
+            String[] artists = new String[30];
+            for(Element element : hitArtist){
+                artists[counter] = element.text();
+                if(counter == 29){
+                    break;
+                }
+                counter++;
+            }
+            counter = 0;
+            Elements hitNameAndFeat = doc.select("div.chart__full__list__track-list div.track div.track div.title-track");
+            for(Element element : hitNameAndFeat){
+                if(counter == 30){
+                    break;
+                }
+                String[] splitNameAndFeat = element.text().split(" \\(feat. ");
+                for(int i = 0; i < splitNameAndFeat.length; i++){
+                    if(i == 0){
+                        hitList.add(new Song(splitNameAndFeat[i]));
+                        hitList.get(counter).addArtist(new Artist(artists[counter]));
+                    }else{
+                        String[] splitIfMoreThanOneFeat = splitNameAndFeat[i].split(", ");
+                        for(int j = 0; j < splitIfMoreThanOneFeat.length; j++){
+                            if(j == splitIfMoreThanOneFeat.length-1){
+                                String ArtistWithoutParenthesis = splitIfMoreThanOneFeat[j].substring(0, splitIfMoreThanOneFeat[j].length()-1);
+                                hitList.get(counter).addArtist(new Artist(ArtistWithoutParenthesis));
+                            }else{
+                                hitList.get(counter).addArtist(new Artist(splitIfMoreThanOneFeat[j]));
+                            }
+                        }
+                    }
+                }
+                counter++;
+            }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -42,16 +92,26 @@ public class WebController {
     }
 
     @GetMapping("/rmffm")
-    public ArrayList<String> rmffmHitList(){
-        ArrayList<String> hitList = new ArrayList<>();
+    public ArrayList<Song> rmffmHitList(){
+        ArrayList<Song> hitList = new ArrayList<>();
         try{
             String address = "https://www.rmf.fm/au/?a=poplista";
             Document doc = Jsoup.connect(address).get();
-            Elements first = doc.select("div#strip-poplista-nr1 div.poplista-artist-title");
-            hitList.add(first.text());
-            Elements hits = doc.select("div#strip-notowanie div.poplista-artist-title");
-
-            hits.forEach(element -> hitList.add(element.text()));
+            Elements hits = doc.select("div.box-text div.poplista-artist-title");
+            int counter = 0;
+            for(Element element : hits){
+                if(counter == 20){
+                    break;
+                }
+                String text = element.text();
+                String[] splitArtistsAndName =  text.split(": ");
+                hitList.add(new Song(splitArtistsAndName[1]));
+                String[] splitArtistsUsingFeat = splitArtistsAndName[0].split(" feat. ");
+                for(String string : splitArtistsUsingFeat){
+                    hitList.get(counter).addArtist(new Artist(string));
+                }
+                counter++;
+            }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -59,26 +119,30 @@ public class WebController {
     }
 
     @GetMapping("/eska")
-    public ArrayList<String> eskaHitList(){
-        //until 20 elements
-        ArrayList<String> hitList = new ArrayList<>();
+    public ArrayList<Song> eskaHitList(){
+        ArrayList<Song> hitList = new ArrayList<>();
         try{
             String address = "https://www.eska.pl/goraca20/";
             Document doc = Jsoup.connect(address).get();
-            Elements hits = doc.select("div.artist-hits div.single-hit__info");
-            for (Element e : hits) {
-
-            }
-            hits.forEach(element -> {
-                String str = element.text();
-                if(!str.contains("Radio")){
-                    if(str.contains("TEKST")){
-                        str = str.substring(0, str.length()-6);
-                    }
-                    hitList.add(str);
+            Elements hitNames = doc.select("div.artist-hits a.single-hit__title");
+            for (Element element : hitNames) {
+                if(hitList.size() == 20){
+                    break;
                 }
-            });
-            hitList.forEach(s -> System.out.println(s));
+                hitList.add(new Song(element.text()));
+            }
+            int counter = 0;
+            Elements hitArtists = doc.select("div.artist-hits div.single-hit__info ul");
+            for (Element element : hitArtists) {
+                if(counter == 20){
+                    break;
+                }
+                Elements artists = element.select("a");
+                for(Element element1 : artists){
+                    hitList.get(counter).addArtist(new Artist(element1.text()));
+                }
+                counter++;
+            }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -105,8 +169,8 @@ public class WebController {
                     break;
                 }
                 String[] split = element.text().split(",");
-                for(int i = 0; i < split.length; i++){
-                    hitList.get(counter).addArtist(new Artist(split[i]));
+                for (String s : split) {
+                    hitList.get(counter).addArtist(new Artist(s));
                 }
                 counter++;
             }
