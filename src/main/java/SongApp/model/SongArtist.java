@@ -1,9 +1,9 @@
-package App;
+package SongApp.model;
 
-public class Artist {
+public class SongArtist {
     String artistName;
 
-    public Artist(String artistName) {
+    public SongArtist(String artistName) {
         this.artistName = artistName;
     }
 
