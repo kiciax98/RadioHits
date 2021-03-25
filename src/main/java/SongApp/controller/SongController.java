@@ -12,7 +12,7 @@ public class SongController {
 
     private SongService songService;
 
-    public SongController(SongService songService) {
+    public SongController() {
         this.songService = new SongService();
     }
 

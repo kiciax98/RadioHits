@@ -28,17 +28,11 @@ public class SongService {
             Document doc = Jsoup.connect(address).get();
             Elements hits = doc.select("div.list-songs a.is-title");
             int counter = 0;
-            String[] artistsAndSong = new String[40];
             for (Element element : hits) {
-                artistsAndSong[counter] = element.attr("title");
-                if (counter == 39) {
+                if(counter == 39){
                     break;
                 }
-                counter++;
-            }
-            counter = 0;
-            for (String s : artistsAndSong) {
-                String[] splitArtistsAndName = s.split(" - ");
+                String[] splitArtistsAndName = element.attr("title").split(" - ");
                 songList.add(new Song(splitArtistsAndName[1]));
                 String[] splitArtistsUsingSlash = splitArtistsAndName[0].split(" / ");
                 for (String string : splitArtistsUsingSlash) {
@@ -60,13 +54,14 @@ public class SongService {
             String address = "https://www.radiozet.pl/Radio/Lista-przebojow";
             Document doc = Jsoup.connect(address).get();
             Elements hitArtist = doc.select("div.chart__full__list__track-list div.track div.track div.artist-track");
+
             int counter = 0;
             String[] artists = new String[30];
             for (Element element : hitArtist) {
-                artists[counter] = element.text();
-                if (counter == 29) {
+                if (counter == 30) {
                     break;
                 }
+                artists[counter] = element.text();
                 counter++;
             }
             counter = 0;
@@ -76,20 +71,12 @@ public class SongService {
                     break;
                 }
                 String[] splitNameAndFeat = element.text().split(" \\(feat. ");
-                for (int i = 0; i < splitNameAndFeat.length; i++) {
-                    if (i == 0) {
-                        songList.add(new Song(splitNameAndFeat[i]));
-                        songList.get(counter).addArtist(new SongArtist(artists[counter]));
-                    } else {
-                        String[] splitIfMoreThanOneFeat = splitNameAndFeat[i].split(", ");
-                        for (int j = 0; j < splitIfMoreThanOneFeat.length; j++) {
-                            if (j == splitIfMoreThanOneFeat.length - 1) {
-                                String ArtistWithoutParenthesis = splitIfMoreThanOneFeat[j].substring(0, splitIfMoreThanOneFeat[j].length() - 1);
-                                songList.get(counter).addArtist(new SongArtist(ArtistWithoutParenthesis));
-                            } else {
-                                songList.get(counter).addArtist(new SongArtist(splitIfMoreThanOneFeat[j]));
-                            }
-                        }
+                songList.add(new Song(splitNameAndFeat[0]));
+                songList.get(counter).addArtist(new SongArtist(artists[counter]));
+                if(splitNameAndFeat.length >1) {
+                    String[] splitIfMoreThanOneFeat = splitNameAndFeat[1].split(",");
+                    for (String string : splitIfMoreThanOneFeat) {
+                        songList.get(counter).addArtist(new SongArtist(string.replace(")","")));
                     }
                 }
                 counter++;
