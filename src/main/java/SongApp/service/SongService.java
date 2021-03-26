@@ -1,16 +1,12 @@
 package SongApp.service;
 
 import SongApp.model.Song;
-import SongApp.model.SongArtist;
 import SongApp.repository.SongRepository;
 import SongApp.service.utils.*;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,11 +53,11 @@ public class SongService {
 
     public List<Song> eskaHitList() {
         String address = "https://www.eska.pl/goraca20/";
-        EskaUtils eskaUtils = new EskaUtils(address);
-        Document document = eskaUtils.connectToAddress(address);
+        EskaAndVoxfmUtils eskaAndVoxfmUtils = new EskaAndVoxfmUtils(address);
+        Document document = eskaAndVoxfmUtils.connectToAddress(address);
         String cssQuery = "div.artist-hits a.single-hit__title";
-        Elements elements = eskaUtils.getSelectedElements(document, cssQuery);
-        List<Song> songList = eskaUtils.getSongNameAndArtistsFromElements(elements);
+        Elements elements = eskaAndVoxfmUtils.getSelectedElements(document, cssQuery);
+        List<Song> songList = eskaAndVoxfmUtils.getSongNameAndArtistsFromElements(elements);
         songListMap.addSongList("eska", songList);
         return songListMap.getSongList("eska");
     }
@@ -79,7 +75,7 @@ public class SongService {
 
     public List<Song> voxfmHitList() {
         String address = "https://www.voxfm.pl/bestlista/";
-        VoxfmUtils voxfmUtils = new VoxfmUtils(address);
+        EskaAndVoxfmUtils voxfmUtils = new EskaAndVoxfmUtils(address);
         Document document = voxfmUtils.connectToAddress(address);
         String cssQuery = "div.artist-hits a.single-hit__title";
         Elements elements = voxfmUtils.getSelectedElements(document, cssQuery);

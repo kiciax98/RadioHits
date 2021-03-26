@@ -8,11 +8,11 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoxfmUtils implements Radio{
+public class RadiowawaUtils implements Radio{
 
     private final String address;
 
-    public VoxfmUtils(final String address) {
+    public RadiowawaUtils(final String address) {
         this.address = address;
     }
 
@@ -21,21 +21,21 @@ public class VoxfmUtils implements Radio{
         List<Song> songList = new ArrayList<>();
         int counter = 0;
         for (Element element : hits) {
-            if (counter == 20) {
+            songList.add(new Song(element.text()));
+            if (counter == 13) {
                 break;
             }
-            songList.add(new Song(element.text()));
             counter++;
         }
+        Elements hitArtists = getSelectedElements(connectToAddress(address),"div.notowanie-row span.artist");
         counter = 0;
-        Elements hitArtists = getSelectedElements(connectToAddress(address), "div.artist-hits div.single-hit__info ul");
         for (Element element : hitArtists) {
-            if (counter == 20) {
+            if (counter == 13) {
                 break;
             }
-            Elements artists = element.select("a");
-            for (Element element1 : artists) {
-                songList.get(counter).addArtist(new SongArtist(element1.text()));
+            String[] split = element.text().split(",");
+            for (String s : split) {
+                songList.get(counter).addArtist(new SongArtist(s));
             }
             counter++;
         }
