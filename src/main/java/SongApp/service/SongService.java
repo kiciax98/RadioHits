@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class SongService {
 
-    private SongRepository songListMap;
+    private SongRepository songRepository;
 
     public SongService() {
-        this.songListMap = new SongRepository();
+        this.songRepository = new SongRepository();
     }
 
     public List<Song> rmfmaxxHitList() {
@@ -25,8 +25,8 @@ public class SongService {
         String cssQuery = "div.list-songs a.is-title";
         Elements elements = rmfmaxxUtils.getSelectedElements(document, cssQuery);
         List<Song> songList = rmfmaxxUtils.getSongNameAndArtistsFromElements(elements);
-        songListMap.addSongList("rmfmaxx", songList);
-        return songListMap.getSongList("rmfmaxx");
+        songRepository.addSongList("rmfmaxx", songList);
+        return songRepository.getSongList("rmfmaxx");
     }
 
     public List<Song> radiozetHitList() {
@@ -36,8 +36,8 @@ public class SongService {
         String cssQuery = "div.chart__full__list__track-list div.track div.track div.artist-track";
         Elements elements = radiozetUtils.getSelectedElements(document, cssQuery);
         List<Song> songList = radiozetUtils.getSongNameAndArtistsFromElements(elements);
-        songListMap.addSongList("radiozet", songList);
-        return songListMap.getSongList("radiozet");
+        songRepository.addSongList("radiozet", songList);
+        return songRepository.getSongList("radiozet");
     }
 
     public List<Song> rmffmHitList() {
@@ -47,8 +47,8 @@ public class SongService {
         String cssQuery = "div.box-text div.poplista-artist-title";
         Elements elements = rmffmUtils.getSelectedElements(document, cssQuery);
         List<Song> songList = rmffmUtils.getSongNameAndArtistsFromElements(elements);
-        songListMap.addSongList("rmffm", songList);
-        return songListMap.getSongList("rmffm");
+        songRepository.addSongList("rmffm", songList);
+        return songRepository.getSongList("rmffm");
     }
 
     public List<Song> eskaHitList() {
@@ -58,8 +58,8 @@ public class SongService {
         String cssQuery = "div.artist-hits a.single-hit__title";
         Elements elements = eskaAndVoxfmUtils.getSelectedElements(document, cssQuery);
         List<Song> songList = eskaAndVoxfmUtils.getSongNameAndArtistsFromElements(elements);
-        songListMap.addSongList("eska", songList);
-        return songListMap.getSongList("eska");
+        songRepository.addSongList("eska", songList);
+        return songRepository.getSongList("eska");
     }
 
     public List<Song> radiowawaHitList() {
@@ -69,8 +69,8 @@ public class SongService {
         String cssQuery = "div.notowanie-row span.title";
         Elements elements = radiowawaUtils.getSelectedElements(document, cssQuery);
         List<Song> songList = radiowawaUtils.getSongNameAndArtistsFromElements(elements);
-        songListMap.addSongList("radiowawa", songList);
-        return songListMap.getSongList("radiowawa");
+        songRepository.addSongList("radiowawa", songList);
+        return songRepository.getSongList("radiowawa");
     }
 
     public List<Song> voxfmHitList() {
@@ -80,7 +80,7 @@ public class SongService {
         String cssQuery = "div.artist-hits a.single-hit__title";
         Elements elements = voxfmUtils.getSelectedElements(document, cssQuery);
         List<Song> songList = voxfmUtils.getSongNameAndArtistsFromElements(elements);
-        songListMap.addSongList("voxfm", songList);
-        return songListMap.getSongList("voxfm");
+        songRepository.addSongList("voxfm", songList);
+        return songRepository.getSongList("voxfm");
     }
 }
