@@ -4,16 +4,29 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EskaAndVoxfmUtils implements Radio{
+@Component
+public class EskaUtils implements Radio {
 
-    private final String address;
+    @Autowired
+    private DocumentUtils documentUtils;
 
-    public EskaAndVoxfmUtils(final String address) {
-        this.address = address;
+    @Value("${eska.cssQuery}")
+    private String cssQuery;
+    @Value("${eska.address}")
+    private String address;
+
+    public List<Song> getSongList() {
+        documentUtils.connectToWebsite(address);
+        documentUtils.getWebsiteData();
+        Elements elements = documentUtils.getSelectedElements(cssQuery);
+        return getSongNameAndArtistsFromElements(elements);
     }
 
     @Override
@@ -28,7 +41,7 @@ public class EskaAndVoxfmUtils implements Radio{
             counter++;
         }
         counter = 0;
-        Elements hitArtists = getSelectedElements(connectToAddress(address),"div.artist-hits div.single-hit__info ul");
+        Elements hitArtists = documentUtils.getSelectedElements("div.artist-hits div.single-hit__info ul");
         for (Element element : hitArtists) {
             if (counter == 20) {
                 break;

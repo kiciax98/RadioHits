@@ -4,16 +4,30 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RadiowawaUtils implements Radio{
+@Component
+public class RadiowawaUtils implements Radio {
 
-    private final String address;
+    @Autowired
+    private DocumentUtils documentUtils;
 
-    public RadiowawaUtils(final String address) {
-        this.address = address;
+    @Value("${radiowawa.address}")
+    private String address;
+    @Value("${radiowawa.cssQuery}")
+    private String cssQuery;
+
+    public List<Song> getSongList() {
+        documentUtils.connectToWebsite(address);
+        documentUtils.getWebsiteData();
+        Elements elements = documentUtils.getSelectedElements(cssQuery);
+        List<Song> songList = getSongNameAndArtistsFromElements(elements);
+        return songList;
     }
 
     @Override
@@ -27,7 +41,7 @@ public class RadiowawaUtils implements Radio{
             }
             counter++;
         }
-        Elements hitArtists = getSelectedElements(connectToAddress(address),"div.notowanie-row span.artist");
+        Elements hitArtists = documentUtils.getSelectedElements("div.notowanie-row span.artist");
         counter = 0;
         for (Element element : hitArtists) {
             if (counter == 13) {

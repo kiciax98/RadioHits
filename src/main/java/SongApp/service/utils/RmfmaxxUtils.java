@@ -4,21 +4,38 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RmfmaxxUtils implements Radio{
+@Component
+public class RmfmaxxUtils implements Radio {
 
-    public RmfmaxxUtils() {
+    @Autowired
+    private DocumentUtils documentUtils;
+
+    @Value("${rmfmaxx.address}")
+    private String address;
+    @Value("${rmfmaxx.cssQuery}")
+    private String cssQuery;
+
+    public List<Song> getSongList() {
+        documentUtils.connectToWebsite(address);
+        documentUtils.getWebsiteData();
+        Elements elements = documentUtils.getSelectedElements(cssQuery);
+        List<Song> songList = getSongNameAndArtistsFromElements(elements);
+        return songList;
     }
 
     @Override
     public List<Song> getSongNameAndArtistsFromElements(Elements hits) {
-        List<Song> songList  = new ArrayList<>();
+        List<Song> songList = new ArrayList<>();
         int counter = 0;
         for (Element element : hits) {
-            if(counter == 40){
+            if (counter == 40) {
                 break;
             }
             String[] splitArtistsAndName = element.attr("title").split(" - ");

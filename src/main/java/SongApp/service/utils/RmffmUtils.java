@@ -4,13 +4,30 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RmffmUtils implements Radio{
+@Component
+public class RmffmUtils implements Radio {
 
-    public RmffmUtils() {
+    @Autowired
+    private DocumentUtils documentUtils;
+
+    @Value("${rmffm.address}")
+    private String address;
+    @Value("${rmffm.cssQuery}")
+    private String cssQuery;
+
+    public List<Song> getSongList() {
+        documentUtils.connectToWebsite(address);
+        documentUtils.getWebsiteData();
+        Elements elements = documentUtils.getSelectedElements(cssQuery);
+        List<Song> songList = getSongNameAndArtistsFromElements(elements);
+        return songList;
     }
 
     @Override

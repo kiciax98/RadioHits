@@ -4,16 +4,30 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RadiozetUtils implements Radio{
+@Component
+public class RadiozetUtils implements Radio {
 
-    private final String address;
+    @Autowired
+    private DocumentUtils documentUtils;
 
-    public RadiozetUtils(final String address) {
-        this.address = address;
+    @Value("${radiozet.address}")
+    private String address;
+    @Value("${radiozet.cssQuery}")
+    private String cssQuery;
+
+    public List<Song> getSongList() {
+        documentUtils.connectToWebsite(address);
+        documentUtils.getWebsiteData();
+        Elements elements = documentUtils.getSelectedElements(cssQuery);
+        List<Song> songList = getSongNameAndArtistsFromElements(elements);
+        return songList;
     }
 
     @Override
@@ -29,7 +43,7 @@ public class RadiozetUtils implements Radio{
             counter++;
         }
         counter = 0;
-        Elements hitNameAndFeat = getSelectedElements(connectToAddress(address),"div.chart__full__list__track-list div.track div.track div.title-track");
+        Elements hitNameAndFeat = documentUtils.getSelectedElements("div.chart__full__list__track-list div.track div.track div.title-track");
         for (Element element : hitNameAndFeat) {
             if (counter == 30) {
                 break;
@@ -37,10 +51,10 @@ public class RadiozetUtils implements Radio{
             String[] splitNameAndFeat = element.text().split(" \\(feat. ");
             songList.add(new Song(splitNameAndFeat[0]));
             songList.get(counter).addArtist(new SongArtist(artists[counter]));
-            if(splitNameAndFeat.length >1) {
+            if (splitNameAndFeat.length > 1) {
                 String[] splitIfMoreThanOneFeat = splitNameAndFeat[1].split(",");
                 for (String string : splitIfMoreThanOneFeat) {
-                    songList.get(counter).addArtist(new SongArtist(string.replace(")","")));
+                    songList.get(counter).addArtist(new SongArtist(string.replace(")", "")));
                 }
             }
             counter++;
