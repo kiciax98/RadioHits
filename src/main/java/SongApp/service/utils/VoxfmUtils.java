@@ -4,7 +4,6 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import java.util.List;
 @Component
 public class VoxfmUtils implements Radio {
 
-    @Autowired
     private DocumentUtils documentUtils;
 
     @Value("${voxfm.address}")
@@ -22,12 +20,15 @@ public class VoxfmUtils implements Radio {
     @Value("${voxfm.cssQuery}")
     private String cssQuery;
 
+    public VoxfmUtils(DocumentUtils documentUtils) {
+        this.documentUtils = documentUtils;
+    }
+
     public List<Song> getSongList() {
         documentUtils.connectToWebsite(address);
         documentUtils.getWebsiteData();
         Elements elements = documentUtils.getSelectedElements(cssQuery);
-        List<Song> songList = getSongNameAndArtistsFromElements(elements);
-        return songList;
+        return getSongNameAndArtistsFromElements(elements);
     }
 
     @Override

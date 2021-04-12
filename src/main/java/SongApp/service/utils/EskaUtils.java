@@ -4,7 +4,6 @@ import SongApp.model.Song;
 import SongApp.model.SongArtist;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +13,16 @@ import java.util.List;
 @Component
 public class EskaUtils implements Radio {
 
-    @Autowired
     private DocumentUtils documentUtils;
 
     @Value("${eska.cssQuery}")
     private String cssQuery;
     @Value("${eska.address}")
     private String address;
+
+    public EskaUtils(DocumentUtils documentUtils) {
+        this.documentUtils = documentUtils;
+    }
 
     public List<Song> getSongList() {
         documentUtils.connectToWebsite(address);

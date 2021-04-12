@@ -3,7 +3,6 @@ package SongApp.service;
 import SongApp.model.Song;
 import SongApp.repository.SongRepository;
 import SongApp.service.utils.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,21 +10,24 @@ import java.util.List;
 @Service
 public class SongService {
 
-    @Autowired
-    private SongRepository songRepository;
+    private final SongRepository songRepository;
 
-    @Autowired
     private RadiowawaUtils radiowawaUtils;
-    @Autowired
     private RadiozetUtils radiozetUtils;
-    @Autowired
     private RmfmaxxUtils rmfmaxxUtils;
-    @Autowired
     private RmffmUtils rmffmUtils;
-    @Autowired
     private VoxfmUtils voxfmUtils;
-    @Autowired
     private EskaUtils eskaUtils;
+
+    public SongService(SongRepository songRepository, RadiowawaUtils radiowawaUtils, RadiozetUtils radiozetUtils, RmfmaxxUtils rmfmaxxUtils, RmffmUtils rmffmUtils, VoxfmUtils voxfmUtils, EskaUtils eskaUtils) {
+        this.songRepository = songRepository;
+        this.radiowawaUtils = radiowawaUtils;
+        this.radiozetUtils = radiozetUtils;
+        this.rmfmaxxUtils = rmfmaxxUtils;
+        this.rmffmUtils = rmffmUtils;
+        this.voxfmUtils = voxfmUtils;
+        this.eskaUtils = eskaUtils;
+    }
 
     public List<Song> rmfmaxxHitList() {
         songRepository.addSongList("rmfmaxx", rmfmaxxUtils.getSongList());
