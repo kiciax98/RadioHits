@@ -1,7 +1,6 @@
 package SongApp.repository;
 
 import SongApp.model.Song;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
