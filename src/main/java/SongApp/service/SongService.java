@@ -2,8 +2,6 @@ package SongApp.service;
 
 import SongApp.model.Song;
 import SongApp.repository.SongRepository;
-import SongApp.service.utils.*;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
