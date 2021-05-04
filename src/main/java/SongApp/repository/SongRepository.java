@@ -1,6 +1,7 @@
 package SongApp.repository;
 
 import SongApp.model.Song;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class SongRepository {
     }
 
     public void addSongList(String radioName, List<Song> songList){
-        this.songMap.putIfAbsent(radioName, songList);
+        this.songMap.put(radioName, songList);
     }
 
     public List<Song> getSongList(String radioName){
