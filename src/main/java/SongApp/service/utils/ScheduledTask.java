@@ -2,7 +2,9 @@ package SongApp.service.utils;
 
 import SongApp.repository.SongRepository;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ScheduledTask {
 
     private SongRepository songRepository;
@@ -33,5 +35,4 @@ public class ScheduledTask {
         songRepository.addSongList("eska", eskaUtils.getSongList());
         songRepository.addSongList("voxfm", voxfmUtils.getSongList());
     }
-
 }
