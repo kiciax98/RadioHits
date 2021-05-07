@@ -30,12 +30,13 @@ public class EskaUtilsTest {
     @Before
     public void init(){
         String cssQuery = "div.artist-hits a.single-hit__title";
+        String cssQuerySecond = "div.artist-hits div.single-hit__info ul";
         File input = new File("src/test/resources/eska.html");
         try {
             Document document = Jsoup.parse(input, "UTF-8");
             ReflectionTestUtils.setField(eskaUtils, "cssQuery", cssQuery);
             ReflectionTestUtils.setField(eskaUtils, "address", "https://www.eska.pl/goraca20/");
-            Mockito.when(documentUtils.getSelectedElements("div.artist-hits div.single-hit__info ul")).thenReturn(document.select("div.artist-hits div.single-hit__info ul"));
+            Mockito.when(documentUtils.getSelectedElements(cssQuerySecond)).thenReturn(document.select(cssQuerySecond));
             Mockito.when(documentUtils.getSelectedElements(cssQuery)).thenReturn(document.select(cssQuery));
         }catch (IOException e){
             System.out.println(e.getMessage());
