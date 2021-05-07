@@ -1,17 +1,12 @@
 package SongApp.controller;
 
-import SongApp.model.Song;
 import SongApp.service.SongService;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SongControllerTest {
@@ -42,8 +37,8 @@ public class SongControllerTest {
 
     @Test
     public void getRadiowawaHitListTest(){
-        songController.radiowawaHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadiowawaHitList();
+        songController.radiosupernovaHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadiosupernovaHitList();
     }
 
     @Test

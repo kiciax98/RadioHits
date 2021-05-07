@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RadiowawaUtils implements Radio {
+public class RadiosupernovaUtils implements Radio {
 
     private DocumentUtils documentUtils;
 
@@ -20,7 +20,7 @@ public class RadiowawaUtils implements Radio {
     @Value("${radiowawa.cssQuery}")
     private String cssQuery;
 
-    public RadiowawaUtils(DocumentUtils documentUtils) {
+    public RadiosupernovaUtils(DocumentUtils documentUtils) {
         this.documentUtils = documentUtils;
     }
 
@@ -36,21 +36,21 @@ public class RadiowawaUtils implements Radio {
         List<Song> songList = new ArrayList<>();
         int counter = 0;
         for (Element element : hits) {
-            songList.add(new Song(element.text()));
             if (counter == 13) {
                 break;
             }
+            songList.add(new Song(element.text()));
             counter++;
         }
-        Elements hitArtists = documentUtils.getSelectedElements("div.notowanie-row span.artist");
         counter = 0;
+        Elements hitArtists = documentUtils.getSelectedElements("div.artist-hits div.single-hit__info ul");
         for (Element element : hitArtists) {
             if (counter == 13) {
                 break;
             }
-            String[] split = element.text().split(",");
-            for (String s : split) {
-                songList.get(counter).addArtist(new SongArtist(s));
+            Elements artists = element.select("a");
+            for (Element element1 : artists) {
+                songList.get(counter).addArtist(new SongArtist(element1.text()));
             }
             counter++;
         }

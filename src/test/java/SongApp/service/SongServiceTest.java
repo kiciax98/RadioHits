@@ -37,7 +37,7 @@ public class SongServiceTest {
 
     @Test
     public void getRadiowawaHitListTest() {
-        songService.getRadiowawaHitList();
+        songService.getRadiosupernovaHitList();
         Mockito.verify(songRepository, Mockito.times(1)).getSongList("radiowawa");
     }
 

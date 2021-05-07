@@ -36,9 +36,9 @@ public class SongController {
         return songService.getEskaHitList();
     }
 
-    @GetMapping("/radiowawa")
-    public List<Song> radiowawaHitList(){
-        return songService.getRadiowawaHitList();
+    @GetMapping("/radiosupernova")
+    public List<Song> radiosupernovaHitList(){
+        return songService.getRadiosupernovaHitList();
     }
 
     @GetMapping("/voxfm")

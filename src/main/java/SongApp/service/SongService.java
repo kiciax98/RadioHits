@@ -27,8 +27,8 @@ public class SongService {
         return songRepository.getSongList("rmffm");
     }
 
-    public List<Song> getRadiowawaHitList() {
-        return songRepository.getSongList("radiowawa");
+    public List<Song> getRadiosupernovaHitList() {
+        return songRepository.getSongList("radiosupernova");
     }
 
     public List<Song> getEskaHitList() {
