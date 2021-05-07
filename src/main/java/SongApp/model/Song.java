@@ -9,7 +9,7 @@ public class Song {
 
     public Song(String songName) {
         this.songName = songName;
-        songArtists = new ArrayList<>();
+        this.songArtists = new ArrayList<>();
     }
 
     public String getSongName() {
@@ -20,7 +20,7 @@ public class Song {
         return songArtists;
     }
 
-    public void addArtist(SongArtist songArtist){
+    public void addArtist(SongArtist songArtist) {
         songArtists.add(songArtist);
     }
 }
