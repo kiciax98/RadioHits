@@ -15,9 +15,9 @@ public class RadiosupernovaUtils implements Radio {
 
     private DocumentUtils documentUtils;
 
-    @Value("${radiowawa.address}")
+    @Value("${radiosupernova.address}")
     private String address;
-    @Value("${radiowawa.cssQuery}")
+    @Value("${radiosupernova.cssQuery}")
     private String cssQuery;
 
     public RadiosupernovaUtils(DocumentUtils documentUtils) {
