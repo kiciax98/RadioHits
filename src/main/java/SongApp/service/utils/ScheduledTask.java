@@ -26,7 +26,7 @@ public class ScheduledTask {
         this.eskaUtils = eskaUtils;
     }
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedRateString = "3600000")
     public void addAllHitListsToRepository(){
         songRepository.addSongList("rmfmaxx", rmfmaxxUtils.getSongList());
         songRepository.addSongList("radiozet", radiozetUtils.getSongList());
