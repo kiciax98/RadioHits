@@ -3,7 +3,6 @@ package SongApp.repository;
 import SongApp.model.Song;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
