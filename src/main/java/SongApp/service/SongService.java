@@ -1,7 +1,9 @@
 package SongApp.service;
 
+import SongApp.model.Radio;
 import SongApp.model.Song;
 import SongApp.repository.SongRepository;
+import SongApp.service.utils.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,31 +13,48 @@ public class SongService {
 
     private SongRepository songRepository;
 
-    public SongService(SongRepository songRepository) {
+    private RadiosupernovaUtils radiosupernovaUtils;
+    private RadiozetUtils radiozetUtils;
+    private RmfmaxxUtils rmfmaxxUtils;
+    private RmffmUtils rmffmUtils;
+    private VoxfmUtils voxfmUtils;
+    private EskaUtils eskaUtils;
+
+    public SongService(SongRepository songRepository, RadiosupernovaUtils radiosupernovaUtils, RadiozetUtils radiozetUtils, RmfmaxxUtils rmfmaxxUtils, RmffmUtils rmffmUtils, VoxfmUtils voxfmUtils, EskaUtils eskaUtils) {
         this.songRepository = songRepository;
+        this.radiosupernovaUtils = radiosupernovaUtils;
+        this.radiozetUtils = radiozetUtils;
+        this.rmfmaxxUtils = rmfmaxxUtils;
+        this.rmffmUtils = rmffmUtils;
+        this.voxfmUtils = voxfmUtils;
+        this.eskaUtils = eskaUtils;
     }
 
-    public List<Song> getRmfmaxxHitList() {
-        return songRepository.getSongList("rmfmaxx");
+    public List<Song> getRadio(Enum radio) {
+        return songRepository.getSongList(radio);
     }
 
-    public List<Song> getRadiozetHitList() {
-        return songRepository.getSongList("radiozet");
+    public void updateRmfmaxx() {
+        songRepository.updateSongList(Radio.RMFMAXX, rmfmaxxUtils.getSongList());
     }
 
-    public List<Song> getRmffmHitList() {
-        return songRepository.getSongList("rmffm");
+    public void updateRadiozet() {
+        songRepository.updateSongList(Radio.RADIOZET, radiozetUtils.getSongList());
     }
 
-    public List<Song> getRadiosupernovaHitList() {
-        return songRepository.getSongList("radiosupernova");
+    public void updateRmffm() {
+        songRepository.updateSongList(Radio.RMFFM, rmffmUtils.getSongList());
     }
 
-    public List<Song> getEskaHitList() {
-        return songRepository.getSongList("eska");
+    public void updateRadiosupernova() {
+        songRepository.updateSongList(Radio.RADIOSUPERNOVA, radiosupernovaUtils.getSongList());
     }
 
-    public List<Song> getVoxfmHitList() {
-        return songRepository.getSongList("voxfm");
+    public void updateEska() {
+        songRepository.updateSongList(Radio.ESKA, eskaUtils.getSongList());
+    }
+
+    public void updateVoxfm() {
+        songRepository.updateSongList(Radio.VOXFM, voxfmUtils.getSongList());
     }
 }

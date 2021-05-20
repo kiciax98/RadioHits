@@ -10,18 +10,18 @@ import java.util.Map;
 @Repository
 public class SongRepository {
 
-    private Map<String, List<Song>> songMap;
+    private Map<Enum, List<Song>> songMap;
 
     public SongRepository() {
         this.songMap = new HashMap<>();
     }
 
-    public void addSongList(String radioName, List<Song> songList){
-        this.songMap.put(radioName, songList);
+    public void updateSongList(Enum radio, List<Song> songList){
+        this.songMap.put(radio, songList);
     }
 
-    public List<Song> getSongList(String radioName){
-        return songMap.get(radioName);
+    public List<Song> getSongList(Enum radio){
+        return songMap.get(radio);
     }
 
 }
