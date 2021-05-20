@@ -1,5 +1,6 @@
 package SongApp.controller;
 
+import SongApp.model.Radio;
 import SongApp.service.SongService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,36 +21,36 @@ public class SongControllerTest {
     @Test
     public void getRmfmaxxHitListTest(){
         songController.rmfmaxxHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRmfmaxxHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RMFMAXX);
     }
 
     @Test
     public void getRadiozetHitListTest(){
         songController.radiozetHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadiozetHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RADIOZET);
     }
 
     @Test
     public void getRmffmHitListTest(){
         songController.rmffmHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRmffmHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RMFFM);
     }
 
     @Test
     public void getRadiowawaHitListTest(){
         songController.radiosupernovaHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadiosupernovaHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RADIOSUPERNOVA);
     }
 
     @Test
     public void getEskaHitListTest(){
         songController.eskaHitList();
-        Mockito.verify(songService, Mockito.times(1)).getEskaHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.ESKA);
     }
 
     @Test
     public void getVoxHitListTest(){
         songController.voxfmHitList();
-        Mockito.verify(songService, Mockito.times(1)).getVoxfmHitList();
+        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.VOXFM);
     }
 }

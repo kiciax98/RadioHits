@@ -1,5 +1,6 @@
 package SongApp.repository;
 
+import SongApp.model.Radio;
 import SongApp.model.Song;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,8 +15,8 @@ public class SongRepositoryTest {
         List<Song> songList = new ArrayList<>();
         songList.add(new Song("Cisza"));
         SongRepository songRepository = new SongRepository();
-        songRepository.addSongList("testAdd", songList);
-        Assert.assertEquals(songList, songRepository.getSongList("testAdd"));
+        songRepository.updateSongList(Radio.VOXFM, songList);
+        Assert.assertEquals(songList, songRepository.getSongList(Radio.VOXFM));
     }
 
     @Test
@@ -23,7 +24,7 @@ public class SongRepositoryTest {
         List<Song> songList = new ArrayList<>();
         songList.add(new Song("Zaprzepaszczone sily"));
         SongRepository songRepository = new SongRepository();
-        songRepository.addSongList("testGet", songList);
-        Assert.assertEquals(songList, songRepository.getSongList("testGet"));
+        songRepository.updateSongList(Radio.ESKA, songList);
+        Assert.assertEquals(songList, songRepository.getSongList(Radio.ESKA));
     }
 }

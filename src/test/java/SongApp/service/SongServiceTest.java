@@ -1,5 +1,6 @@
 package SongApp.service;
 
+import SongApp.model.Radio;
 import SongApp.repository.SongRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,37 +20,37 @@ public class SongServiceTest {
 
     @Test
     public void getRmfmaxxHitListTest() {
-        songService.getRmfmaxxHitList();
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList("rmfmaxx");
+        songService.getRadio(Radio.RMFMAXX);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RMFMAXX);
     }
 
     @Test
     public void getRadiozetHitListTest() {
-        songService.getRadiozetHitList();
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList("radiozet");
+        songService.getRadio(Radio.RADIOZET);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RADIOZET);
     }
 
     @Test
     public void getRmffmHitListTest() {
-        songService.getRmffmHitList();
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList("rmffm");
+        songService.getRadio(Radio.RMFFM);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RMFFM);
     }
 
     @Test
-    public void getRadiowawaHitListTest() {
-        songService.getRadiosupernovaHitList();
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList("radiowawa");
+    public void getRadiosupernovaHitListTest() {
+        songService.getRadio(Radio.RADIOSUPERNOVA);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RADIOSUPERNOVA);
     }
 
     @Test
     public void getEskaHitListTest() {
-        songService.getEskaHitList();
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList("eska");
+        songService.getRadio(Radio.ESKA);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.ESKA);
     }
 
     @Test
     public void getVoxfmHitListTest() {
-        songService.getVoxfmHitList();
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList("voxfm");
+        songService.getRadio(Radio.VOXFM);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.VOXFM);
     }
 }

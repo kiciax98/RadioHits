@@ -29,7 +29,7 @@ public class RadiozetUtilsTest {
     RadiozetUtils radiozetUtils;
 
     @Before
-    public void init(){
+    public void init() {
         String cssQuery = "div.chart__full__list__track-list div.track div.track div.artist-track";
         String cssQuerySecond = "div.chart__full__list__track-list div.track div.track div.title-track";
         File input = new File("src/test/resources/radiozet.html");
@@ -39,7 +39,7 @@ public class RadiozetUtilsTest {
             ReflectionTestUtils.setField(radiozetUtils, "address", "https://www.radiozet.pl/Radio/Lista-przebojow");
             Mockito.when(documentUtils.getSelectedElements(cssQuerySecond)).thenReturn(document.select(cssQuerySecond));
             Mockito.when(documentUtils.getSelectedElements(cssQuery)).thenReturn(document.select(cssQuery));
-        }catch (IOException e){
+        }catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -51,37 +51,37 @@ public class RadiozetUtilsTest {
     }
 
     @Test
-    public void songNameNotEquals(){
+    public void songNameNotEquals() {
         List<Song> results = radiozetUtils.getSongList();
         assertNotEquals("Rasputin", results.get(1).getSongName());
     }
 
     @Test
-    public void songFirstArtistEquals(){
+    public void songFirstArtistEquals() {
         List<Song> results = radiozetUtils.getSongList();
         assertEquals("Dawid Kwiatkowski", results.get(0).getSongArtists().get(0).getName());
     }
 
     @Test
-    public void songSecondArtistEquals(){
+    public void songSecondArtistEquals() {
         List<Song> results = radiozetUtils.getSongList();
         assertEquals("Topic & A7S", results.get(1).getSongArtists().get(1).getName());
     }
 
     @Test
-    public void songFirstArtistNotEquals(){
+    public void songFirstArtistNotEquals() {
         List<Song> results = radiozetUtils.getSongList();
         assertNotEquals("Boney M.", results.get(0).getSongArtists().get(0).getName());
     }
 
     @Test
-    public void songSecondArtistNotEquals(){
+    public void songSecondArtistNotEquals() {
         List<Song> results = radiozetUtils.getSongList();
         assertNotEquals("Majestic", results.get(1).getSongArtists().get(1).getName());
     }
 
     @Test
-    public void listSizeIs30(){
+    public void listSizeIs30() {
         List<Song> results = radiozetUtils.getSongList();
         assertEquals(30, results.size());
     }
