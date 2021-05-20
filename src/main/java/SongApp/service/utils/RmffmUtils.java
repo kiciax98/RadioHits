@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RmffmUtils implements Radio {
+public class RmffmUtils implements SongExtractor {
 
     private DocumentUtils documentUtils;
 

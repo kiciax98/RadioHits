@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RadiozetUtils implements Radio {
+public class RadiozetUtils implements SongExtractor {
 
     private DocumentUtils documentUtils;
 
@@ -33,17 +33,14 @@ public class RadiozetUtils implements Radio {
 
     @Override
     public List<Song> getSongNameAndArtistsFromElements(Elements hits) {
+        String[] artists = getSongName(hits);
+        List<Song> songList = getSongArtists(artists);
+        return  songList;
+    }
+
+    private List<Song> getSongArtists(String[] artists) {
         List<Song> songList = new ArrayList<>();
         int counter = 0;
-        String[] artists = new String[30];
-        for (Element element : hits) {
-            if (counter == 30) {
-                break;
-            }
-            artists[counter] = element.text();
-            counter++;
-        }
-        counter = 0;
         Elements hitNameAndFeat = documentUtils.getSelectedElements("div.chart__full__list__track-list div.track div.track div.title-track");
         for (Element element : hitNameAndFeat) {
             if (counter == 30) {
@@ -61,5 +58,18 @@ public class RadiozetUtils implements Radio {
             counter++;
         }
         return songList;
+    }
+
+    private String[] getSongName(Elements hits) {
+        String[] artists = new String[30];
+        int counter = 0;
+        for (Element element : hits) {
+            if (counter == 30) {
+                break;
+            }
+            artists[counter] = element.text();
+            counter++;
+        }
+        return artists;
     }
 }

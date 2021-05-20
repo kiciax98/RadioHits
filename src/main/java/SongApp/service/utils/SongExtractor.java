@@ -5,7 +5,7 @@ import org.jsoup.select.Elements;
 
 import java.util.List;
 
-public interface Radio {
+public interface SongExtractor {
     List<Song> getSongNameAndArtistsFromElements(Elements hits);
 
 }

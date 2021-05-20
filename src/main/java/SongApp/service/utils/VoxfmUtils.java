@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class VoxfmUtils implements Radio {
+public class VoxfmUtils implements SongExtractor {
 
     private DocumentUtils documentUtils;
 
@@ -33,16 +33,13 @@ public class VoxfmUtils implements Radio {
 
     @Override
     public List<Song> getSongNameAndArtistsFromElements(Elements hits) {
-        List<Song> songList = new ArrayList<>();
+        List<Song> songList = getSongName(hits);
+        getSongArtists(songList);
+        return songList;
+    }
+
+    private void getSongArtists(List<Song> songList) {
         int counter = 0;
-        for (Element element : hits) {
-            if (counter == 20) {
-                break;
-            }
-            songList.add(new Song(element.text()));
-            counter++;
-        }
-        counter = 0;
         Elements hitArtists = documentUtils.getSelectedElements("div.artist-hits div.single-hit__info ul");
         for (Element element : hitArtists) {
             if (counter == 20) {
@@ -52,6 +49,18 @@ public class VoxfmUtils implements Radio {
             for (Element element1 : artists) {
                 songList.get(counter).addArtist(new SongArtist(element1.text()));
             }
+            counter++;
+        }
+    }
+
+    private List<Song> getSongName(Elements hits) {
+        List<Song> songList = new ArrayList<>();
+        int counter = 0;
+        for (Element element : hits) {
+            if (counter == 20) {
+                break;
+            }
+            songList.add(new Song(element.text()));
             counter++;
         }
         return songList;
