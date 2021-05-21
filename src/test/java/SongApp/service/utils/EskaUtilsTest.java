@@ -1,6 +1,7 @@
 package SongApp.service.utils;
 
 import SongApp.model.Song;
+import SongApp.model.SongArtist;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -47,37 +48,57 @@ public class EskaUtilsTest {
     @Test
     public void songNameEquals() {
         List<Song> results = eskaUtils.getSongList();
-        assertEquals("Rasputin", results.get(0).getSongName());
+        Song song = results.get(0);
+        String songName = song.getSongName();
+        assertEquals("Rasputin", songName);
     }
 
     @Test
     public void songNameNotEquals(){
         List<Song> results = eskaUtils.getSongList();
-        assertNotEquals("Rasputin", results.get(1).getSongName());
+        Song song = results.get(1);
+        String songName = song.getSongName();
+        assertNotEquals("Rasputin", songName);
     }
 
     @Test
     public void songFirstArtistEquals(){
         List<Song> results = eskaUtils.getSongList();
-        assertEquals("Majestic", results.get(0).getSongArtists().get(0).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertEquals("Majestic", songArtistName);
     }
 
     @Test
     public void songSecondArtistEquals(){
         List<Song> results = eskaUtils.getSongList();
-        assertEquals("Boney M.", results.get(0).getSongArtists().get(1).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(1);
+        String songArtistName = songArtist.getName();
+        assertEquals("Boney M.", songArtistName);
     }
 
     @Test
     public void songFirstArtistNotEquals(){
         List<Song> results = eskaUtils.getSongList();
-        assertNotEquals("Boney M.", results.get(1).getSongArtists().get(0).getName());
+        Song song = results.get(1);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertNotEquals("Boney M.", songArtistName);
     }
 
     @Test
     public void songSecondArtistNotEquals(){
         List<Song> results = eskaUtils.getSongList();
-        assertNotEquals("Majestic", results.get(1).getSongArtists().get(1).getName());
+        Song song = results.get(1);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(1);
+        String songArtistName = songArtist.getName();
+        assertNotEquals("Majestic", songArtistName);
     }
 
     @Test

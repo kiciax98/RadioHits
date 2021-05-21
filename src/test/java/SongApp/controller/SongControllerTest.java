@@ -21,36 +21,36 @@ public class SongControllerTest {
     @Test
     public void getRmfmaxxHitListTest(){
         songController.rmfmaxxHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RMFMAXX);
+        Mockito.verify(songService, Mockito.times(1)).getRadioHits(Radio.RMFMAXX);
     }
 
     @Test
     public void getRadiozetHitListTest(){
         songController.radiozetHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RADIOZET);
+        Mockito.verify(songService, Mockito.times(1)).getRadioHits(Radio.RADIOZET);
     }
 
     @Test
     public void getRmffmHitListTest(){
         songController.rmffmHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RMFFM);
+        Mockito.verify(songService, Mockito.times(1)).getRadioHits(Radio.RMFFM);
     }
 
     @Test
     public void getRadiowawaHitListTest(){
         songController.radiosupernovaHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.RADIOSUPERNOVA);
+        Mockito.verify(songService, Mockito.times(1)).getRadioHits(Radio.RADIOSUPERNOVA);
     }
 
     @Test
     public void getEskaHitListTest(){
         songController.eskaHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.ESKA);
+        Mockito.verify(songService, Mockito.times(1)).getRadioHits(Radio.ESKA);
     }
 
     @Test
     public void getVoxHitListTest(){
         songController.voxfmHitList();
-        Mockito.verify(songService, Mockito.times(1)).getRadio(Radio.VOXFM);
+        Mockito.verify(songService, Mockito.times(1)).getRadioHits(Radio.VOXFM);
     }
 }

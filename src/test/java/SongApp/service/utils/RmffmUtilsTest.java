@@ -1,6 +1,7 @@
 package SongApp.service.utils;
 
 import SongApp.model.Song;
+import SongApp.model.SongArtist;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -45,37 +46,57 @@ public class RmffmUtilsTest {
     @Test
     public void songNameEquals() {
         List<Song> results = rmffmUtils.getSongList();
-        assertEquals("Love Again", results.get(0).getSongName());
+        Song song = results.get(0);
+        String songName = song.getSongName();
+        assertEquals("Love Again", songName);
     }
 
     @Test
     public void songNameNotEquals(){
         List<Song> results = rmffmUtils.getSongList();
-        assertNotEquals("Rasputin", results.get(0).getSongName());
+        Song song = results.get(0);
+        String songName = song.getSongName();
+        assertNotEquals("Rasputin", songName);
     }
 
     @Test
     public void songFirstArtistEquals(){
         List<Song> results = rmffmUtils.getSongList();
-        assertEquals("Alok & Vize", results.get(0).getSongArtists().get(0).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertEquals("Alok & Vize", songArtistName);
     }
 
     @Test
     public void songSecondArtistEquals(){
         List<Song> results = rmffmUtils.getSongList();
-        assertEquals("Alida", results.get(0).getSongArtists().get(1).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(1);
+        String songArtistName = songArtist.getName();
+        assertEquals("Alida", songArtistName);
     }
 
     @Test
     public void songFirstArtistNotEquals(){
         List<Song> results = rmffmUtils.getSongList();
-        assertNotEquals("Boney M.", results.get(0).getSongArtists().get(0).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertNotEquals("Boney M.", songArtistName);
     }
 
     @Test
     public void songSecondArtistNotEquals(){
         List<Song> results = rmffmUtils.getSongList();
-        assertNotEquals("Majestic", results.get(0).getSongArtists().get(1).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(1);
+        String songArtistName = songArtist.getName();
+        assertNotEquals("Majestic", songArtistName);
     }
 
     @Test

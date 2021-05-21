@@ -1,6 +1,7 @@
 package SongApp.service.utils;
 
 import SongApp.model.Song;
+import SongApp.model.SongArtist;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
@@ -47,31 +48,47 @@ public class RadiosupernovaUtilsTest {
     @Test
     public void songNameEquals() {
         List<Song> results = radiosupernovaUtils.getSongList();
-        assertEquals("Szklany sufit", results.get(0).getSongName());
+        Song song = results.get(0);
+        String songName = song.getSongName();
+        assertEquals("Szklany sufit", songName);
     }
 
     @Test
     public void songNameNotEquals(){
         List<Song> results = radiosupernovaUtils.getSongList();
-        assertNotEquals("Szklany sufit", results.get(1).getSongName());
+        Song song = results.get(1);
+        String songName = song.getSongName();
+        assertNotEquals("Szklany sufit", songName);
     }
 
     @Test
     public void songFirstArtistEquals(){
         List<Song> results = radiosupernovaUtils.getSongList();
-        assertEquals("Three Of Us", results.get(0).getSongArtists().get(0).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertEquals("Three Of Us", songArtistName);
     }
 
     @Test
     public void songFirstArtistNotEquals(){
         List<Song> results = radiosupernovaUtils.getSongList();
-        assertNotEquals("SONIA", results.get(0).getSongArtists().get(0).getName());
+        Song song = results.get(0);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertNotEquals("SONIA", songArtistName);
     }
 
     @Test
     public void songSecondArtistNotEquals(){
         List<Song> results = radiosupernovaUtils.getSongList();
-        assertNotEquals("Three Of Us", results.get(1).getSongArtists().get(0).getName());
+        Song song = results.get(1);
+        List<SongArtist> songArtists = song.getSongArtists();
+        SongArtist songArtist = songArtists.get(0);
+        String songArtistName = songArtist.getName();
+        assertNotEquals("Three Of Us", songArtistName);
     }
 
     @Test

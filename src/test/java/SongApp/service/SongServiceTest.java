@@ -20,37 +20,37 @@ public class SongServiceTest {
 
     @Test
     public void getRmfmaxxHitListTest() {
-        songService.getRadio(Radio.RMFMAXX);
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RMFMAXX);
+        songService.getRadioHits(Radio.RMFMAXX);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongs(Radio.RMFMAXX);
     }
 
     @Test
     public void getRadiozetHitListTest() {
-        songService.getRadio(Radio.RADIOZET);
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RADIOZET);
+        songService.getRadioHits(Radio.RADIOZET);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongs(Radio.RADIOZET);
     }
 
     @Test
     public void getRmffmHitListTest() {
-        songService.getRadio(Radio.RMFFM);
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RMFFM);
+        songService.getRadioHits(Radio.RMFFM);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongs(Radio.RMFFM);
     }
 
     @Test
     public void getRadiosupernovaHitListTest() {
-        songService.getRadio(Radio.RADIOSUPERNOVA);
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.RADIOSUPERNOVA);
+        songService.getRadioHits(Radio.RADIOSUPERNOVA);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongs(Radio.RADIOSUPERNOVA);
     }
 
     @Test
     public void getEskaHitListTest() {
-        songService.getRadio(Radio.ESKA);
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.ESKA);
+        songService.getRadioHits(Radio.ESKA);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongs(Radio.ESKA);
     }
 
     @Test
     public void getVoxfmHitListTest() {
-        songService.getRadio(Radio.VOXFM);
-        Mockito.verify(songRepository, Mockito.times(1)).getSongList(Radio.VOXFM);
+        songService.getRadioHits(Radio.VOXFM);
+        Mockito.verify(songRepository, Mockito.times(1)).getSongs(Radio.VOXFM);
     }
 }
