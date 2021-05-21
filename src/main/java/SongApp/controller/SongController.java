@@ -19,31 +19,31 @@ public class SongController {
 
     @GetMapping("/rmfmaxx")
     public List<Song> rmfmaxxHitList(){
-        return songService.getRadio(Radio.RMFMAXX);
+        return songService.getRadioHits(Radio.RMFMAXX);
     }
 
     @GetMapping("/radiozet")
     public List<Song> radiozetHitList(){
-        return songService.getRadio(Radio.RADIOZET);
+        return songService.getRadioHits(Radio.RADIOZET);
     }
 
     @GetMapping("/rmffm")
     public List<Song> rmffmHitList(){
-        return songService.getRadio(Radio.RMFFM);
+        return songService.getRadioHits(Radio.RMFFM);
     }
 
     @GetMapping("/eska")
     public List<Song> eskaHitList(){
-        return songService.getRadio(Radio.ESKA);
+        return songService.getRadioHits(Radio.ESKA);
     }
 
     @GetMapping("/radiosupernova")
     public List<Song> radiosupernovaHitList(){
-        return songService.getRadio(Radio.RADIOSUPERNOVA);
+        return songService.getRadioHits(Radio.RADIOSUPERNOVA);
     }
 
     @GetMapping("/voxfm")
     public List<Song> voxfmHitList(){
-        return songService.getRadio(Radio.VOXFM);
+        return songService.getRadioHits(Radio.VOXFM);
     }
 }

@@ -30,31 +30,37 @@ public class SongService {
         this.eskaUtils = eskaUtils;
     }
 
-    public List<Song> getRadio(Enum radio) {
-        return songRepository.getSongList(radio);
+    public List<Song> getRadioHits(Radio radio) {
+        return songRepository.getSongs(radio);
     }
 
     public void updateRmfmaxx() {
-        songRepository.updateSongList(Radio.RMFMAXX, rmfmaxxUtils.getSongList());
+        List<Song> songList = rmfmaxxUtils.getSongList();
+        songRepository.updateSongList(Radio.RMFMAXX, songList);
     }
 
     public void updateRadiozet() {
-        songRepository.updateSongList(Radio.RADIOZET, radiozetUtils.getSongList());
+        List<Song> songList = radiozetUtils.getSongList();
+        songRepository.updateSongList(Radio.RADIOZET, songList);
     }
 
     public void updateRmffm() {
-        songRepository.updateSongList(Radio.RMFFM, rmffmUtils.getSongList());
+        List<Song> songList = rmffmUtils.getSongList();
+        songRepository.updateSongList(Radio.RMFFM, songList);
     }
 
     public void updateRadiosupernova() {
-        songRepository.updateSongList(Radio.RADIOSUPERNOVA, radiosupernovaUtils.getSongList());
+        List<Song> songList = radiosupernovaUtils.getSongList();
+        songRepository.updateSongList(Radio.RADIOSUPERNOVA, songList);
     }
 
     public void updateEska() {
-        songRepository.updateSongList(Radio.ESKA, eskaUtils.getSongList());
+        List<Song> songList =eskaUtils.getSongList();
+        songRepository.updateSongList(Radio.ESKA, songList);
     }
 
     public void updateVoxfm() {
-        songRepository.updateSongList(Radio.VOXFM, voxfmUtils.getSongList());
+        List<Song> songList = voxfmUtils.getSongList();
+        songRepository.updateSongList(Radio.VOXFM, songList);
     }
 }
