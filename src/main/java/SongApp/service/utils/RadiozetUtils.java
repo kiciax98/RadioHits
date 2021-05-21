@@ -46,7 +46,8 @@ public class RadiozetUtils implements SongExtractor {
             if (counter == 30) {
                 break;
             }
-            String[] splitNameAndFeat = element.text().split(" \\(feat. ");
+            String songNameAndFeat = element.text();
+            String[] splitNameAndFeat = songNameAndFeat.split(" \\(feat. ");
             Song song = new Song(splitNameAndFeat[0]);
             songList.add(song);
             SongArtist songArtist = new SongArtist(artists[counter]);

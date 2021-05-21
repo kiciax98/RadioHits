@@ -39,7 +39,8 @@ public class RmfmaxxUtils implements SongExtractor {
             if (counter == 40) {
                 break;
             }
-            String[] splitArtistsAndName = element.attr("title").split(" - ");
+            String elementAttribute = element.attr("title");
+            String[] splitArtistsAndName = elementAttribute.split(" - ");
             Song song = new Song(splitArtistsAndName[1]);
             songList.add(song);
             String[] splitArtistsUsingSlash = splitArtistsAndName[0].split(" / ");
