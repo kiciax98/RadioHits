@@ -28,11 +28,11 @@ public class RmffmUtils implements SongExtractor {
         documentUtils.connectToWebsite(address);
         documentUtils.getWebsiteData();
         Elements elements = documentUtils.getSelectedElements(cssQuery);
-        return getSongNameAndArtistsFromElements(elements);
+        return extractSongNameAndArtistsFromElements(elements);
     }
 
     @Override
-    public List<Song> getSongNameAndArtistsFromElements(Elements hits) {
+    public List<Song> extractSongNameAndArtistsFromElements(Elements hits) {
         List<Song> songList = new ArrayList<>();
         int counter = 0;
         for (Element element : hits) {
@@ -41,10 +41,12 @@ public class RmffmUtils implements SongExtractor {
             }
             String text = element.text();
             String[] splitArtistsAndName = text.split(": ");
-            songList.add(new Song(splitArtistsAndName[1]));
+            Song song = new Song(splitArtistsAndName[1]);
+            songList.add(song);
             String[] splitArtistsUsingFeat = splitArtistsAndName[0].split(" feat. ");
             for (String string : splitArtistsUsingFeat) {
-                songList.get(counter).addArtist(new SongArtist(string));
+                SongArtist songArtist = new SongArtist(string);
+                songList.get(counter).addArtist(songArtist);
             }
             counter++;
         }

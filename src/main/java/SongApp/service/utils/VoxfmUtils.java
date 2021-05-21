@@ -28,17 +28,17 @@ public class VoxfmUtils implements SongExtractor {
         documentUtils.connectToWebsite(address);
         documentUtils.getWebsiteData();
         Elements elements = documentUtils.getSelectedElements(cssQuery);
-        return getSongNameAndArtistsFromElements(elements);
+        return extractSongNameAndArtistsFromElements(elements);
     }
 
     @Override
-    public List<Song> getSongNameAndArtistsFromElements(Elements hits) {
-        List<Song> songList = getSongName(hits);
-        getSongArtists(songList);
+    public List<Song> extractSongNameAndArtistsFromElements(Elements hits) {
+        List<Song> songList = extractSongName(hits);
+        extractSongArtists(songList);
         return songList;
     }
 
-    private void getSongArtists(List<Song> songList) {
+    private void extractSongArtists(List<Song> songList) {
         int counter = 0;
         Elements hitArtists = documentUtils.getSelectedElements("div.artist-hits div.single-hit__info ul");
         for (Element element : hitArtists) {
@@ -47,20 +47,24 @@ public class VoxfmUtils implements SongExtractor {
             }
             Elements artists = element.select("a");
             for (Element element1 : artists) {
-                songList.get(counter).addArtist(new SongArtist(element1.text()));
+                String songArtistName = element1.text();
+                SongArtist songArtist =  new SongArtist(songArtistName);
+                songList.get(counter).addArtist(songArtist);
             }
             counter++;
         }
     }
 
-    private List<Song> getSongName(Elements hits) {
+    private List<Song> extractSongName(Elements hits) {
         List<Song> songList = new ArrayList<>();
         int counter = 0;
         for (Element element : hits) {
             if (counter == 20) {
                 break;
             }
-            songList.add(new Song(element.text()));
+            String songName= element.text();
+            Song song = new Song(songName);
+            songList.add(song);
             counter++;
         }
         return songList;

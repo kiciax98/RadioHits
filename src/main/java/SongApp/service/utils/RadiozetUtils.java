@@ -28,17 +28,17 @@ public class RadiozetUtils implements SongExtractor {
         documentUtils.connectToWebsite(address);
         documentUtils.getWebsiteData();
         Elements elements = documentUtils.getSelectedElements(cssQuery);
-        return getSongNameAndArtistsFromElements(elements);
+        return extractSongNameAndArtistsFromElements(elements);
     }
 
     @Override
-    public List<Song> getSongNameAndArtistsFromElements(Elements hits) {
-        String[] artists = getSongName(hits);
-        List<Song> songList = getSongArtists(artists);
+    public List<Song> extractSongNameAndArtistsFromElements(Elements hits) {
+        String[] artists = extractSongName(hits);
+        List<Song> songList = extractSongArtists(artists);
         return  songList;
     }
 
-    private List<Song> getSongArtists(String[] artists) {
+    private List<Song> extractSongArtists(String[] artists) {
         List<Song> songList = new ArrayList<>();
         int counter = 0;
         Elements hitNameAndFeat = documentUtils.getSelectedElements("div.chart__full__list__track-list div.track div.track div.title-track");
@@ -47,12 +47,16 @@ public class RadiozetUtils implements SongExtractor {
                 break;
             }
             String[] splitNameAndFeat = element.text().split(" \\(feat. ");
-            songList.add(new Song(splitNameAndFeat[0]));
-            songList.get(counter).addArtist(new SongArtist(artists[counter]));
+            Song song = new Song(splitNameAndFeat[0]);
+            songList.add(song);
+            SongArtist songArtist = new SongArtist(artists[counter]);
+            songList.get(counter).addArtist(songArtist);
             if (splitNameAndFeat.length > 1) {
                 String[] splitIfMoreThanOneFeat = splitNameAndFeat[1].split(",");
                 for (String string : splitIfMoreThanOneFeat) {
-                    songList.get(counter).addArtist(new SongArtist(string.replace(")", "")));
+                    String songNextArtist = string.replace(")", "");
+                    SongArtist songArtist1 = new SongArtist(songNextArtist);
+                    songList.get(counter).addArtist(songArtist1);
                 }
             }
             counter++;
@@ -60,7 +64,7 @@ public class RadiozetUtils implements SongExtractor {
         return songList;
     }
 
-    private String[] getSongName(Elements hits) {
+    private String[] extractSongName(Elements hits) {
         String[] artists = new String[30];
         int counter = 0;
         for (Element element : hits) {
